@@ -6,4 +6,9 @@ import Database.Entities.Usuarios;
 
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuarios, Integer> {
+    Usuarios findByEmail(String email);
+
+    boolean existsByEmail(String email);
+
+    boolean existsByCpf(String cpf);
 }

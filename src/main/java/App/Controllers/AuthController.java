@@ -2,8 +2,10 @@ package App.Controllers;
 
 import App.Services.DTO.CredenciasLoginDTO.CredenciaisDTO;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import Database.Entities.Usuarios;
 import Database.Services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -29,5 +31,10 @@ public class AuthController {
         Map<String, Object> token = new HashMap<>();
         token.put("token", "12345");
         return token;
+    }
+
+    @GetMapping("/users")
+    public List<Usuarios> getAllUsers(){
+       return usuarioService.findAll();
     }
 }
