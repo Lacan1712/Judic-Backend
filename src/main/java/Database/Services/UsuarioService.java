@@ -26,6 +26,10 @@ public class UsuarioService {
         return usuarioRepository.findById(id);
     }
 
+    public Optional<Usuarios> findByEmail(String email) {
+        return usuarioRepository.findByEmail(email);
+    }
+
     public Optional<Usuarios> updateUsuario(Integer id, Usuarios usuarioDetails) {
         return usuarioRepository.findById(id).map(usuario -> {
             usuario.setNome(usuarioDetails.getNome());
@@ -49,11 +53,11 @@ public class UsuarioService {
         return false;
     }
 
-    public boolean existsByEmail(String email) {
+    public Boolean existsByEmail(String email) {
         return usuarioRepository.existsByEmail(email);
     }
 
-    public boolean existsByCpf(String cpf) {
+    public Boolean existsByCpf(String cpf) {
         return usuarioRepository.existsByCpf(cpf);
     }
 }
