@@ -7,8 +7,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class EnvUtil {
-
-    private String FILE_PATH = "src/main/java/.env";
+    public static String FILE_PATH = "/home/rodrigo/Spring Boot/Judic-Backend/src/main/java/ENV.env";
+    private static final Map<String, String> envVariables = new HashMap<>();
+    static {
+        try {
+            loadEnv();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public String getFILE_PATH() {
         return FILE_PATH;
@@ -18,10 +25,8 @@ public class EnvUtil {
         this.FILE_PATH = FILE_PATH;
     }
 
-    public Map<String, String> EnvUtil() throws IOException {
-        Map<String, String> envVariables = new HashMap<>();
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(this.getFILE_PATH()))) {
+    private static void loadEnv() throws IOException {
+        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 // Ignora linhas em branco e comentários
@@ -38,7 +43,10 @@ public class EnvUtil {
                 }
             }
         }
+    }
 
-        return envVariables;
+    // Metodo estático para obter uma variável de ambiente
+    public static String get(String key) {
+        return envVariables.get(key);
     }
 }
