@@ -3,15 +3,16 @@ package App.Services.Authentication;
 import Database.Entities.Usuarios;
 import Database.Services.UsuarioService;
 import Utils.PasswordHashingUtil.PasswordHashingUtil;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.Optional;
 
 @Service
 public class AuthUserService {
 
-    @Inject
+    @Autowired
     private UsuarioService usuarioService;
 
 
