@@ -7,7 +7,7 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"App","Application","Database"})
+@ComponentScan(basePackages = {"App","Application","Database","Utils"})
 public class WildlfyApplication extends SpringBootServletInitializer{
 
 	public static void main(String[] args) {
