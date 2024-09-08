@@ -6,6 +6,22 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "usuarios")
 public class Usuarios {
+    public Usuarios() {
+
+    }
+
+    public Usuarios(Integer id, String nome, String email, String senha, String cpf, String telefone, String endereco, LocalDateTime dataCriacao, String role, Boolean ativo) {
+        this.id = id;
+        this.nome = nome;
+        this.email = email;
+        this.senha = senha;
+        this.cpf = cpf;
+        this.telefone = telefone;
+        this.endereco = endereco;
+        this.dataCriacao = dataCriacao;
+        this.role = role;
+        this.ativo = ativo;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
