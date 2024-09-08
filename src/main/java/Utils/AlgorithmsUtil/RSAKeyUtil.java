@@ -1,6 +1,8 @@
 package Utils.AlgorithmsUtil;
 
+import Utils.AlgorithmsUtil.Interfaces.CryptographyRSAInterface;
 import Utils.EnviromentUtil.EnvUtil;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -8,18 +10,20 @@ import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
 import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
-import java.security.PrivateKey;
+import java.security.interfaces.RSAPrivateKey;
+import java.security.interfaces.RSAPublicKey;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
-import java.security.PublicKey;
 
-public class RSALoadKeyUtil {
+@Component
+public class RSAKeyUtil implements CryptographyRSAInterface<RSAPublicKey, RSAPrivateKey> {
     private final static String privateKeyPath = EnvUtil.get("PRIVATE_KEY_PATH");
     private final static String publicKeyPath = EnvUtil.get("PUBLIC_KEY_PATH");
 
-    public static PrivateKey loadPrivateKey() {
+    @Override
+    public RSAPrivateKey loadPrivateKey() {
         try {
             String key = new String(Files.readAllBytes(Paths.get(privateKeyPath)));
             key = key.replace("-----BEGIN PRIVATE KEY-----", "")
@@ -32,7 +36,7 @@ public class RSALoadKeyUtil {
             // Converter os bytes para uma chave privada RSA
             PKCS8EncodedKeySpec spec = new PKCS8EncodedKeySpec(keyBytes);
             KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-            return keyFactory.generatePrivate(spec);
+            return (RSAPrivateKey) keyFactory.generatePrivate(spec);
 
         } catch (NoSuchFileException e) {
             System.err.println("Arquivo de chave não encontrado: " + privateKeyPath);
@@ -52,7 +56,8 @@ public class RSALoadKeyUtil {
         return null;
     }
 
-    public static PublicKey loadPublicKey() {
+    @Override
+    public RSAPublicKey loadPublicKey() {
         try {
             String key = new String(Files.readAllBytes(Paths.get(publicKeyPath)));
 
@@ -66,7 +71,7 @@ public class RSALoadKeyUtil {
             // Converter os bytes para uma chave pública RSA
             X509EncodedKeySpec spec = new X509EncodedKeySpec(keyBytes);
             KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-            return keyFactory.generatePublic(spec);
+            return (RSAPublicKey) keyFactory.generatePublic(spec);
 
         } catch (NoSuchFileException e) {
             System.err.println("Arquivo de chave pública não encontrado: " + publicKeyPath);
