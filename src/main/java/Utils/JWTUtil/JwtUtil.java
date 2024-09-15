@@ -27,7 +27,7 @@ public class JwtUtil {
 
         // Cria o token JWT
         return JWT.create()
-                .withIssuer("judic-bakend")
+                .withIssuer("judic-backend")
                 .withIssuedAt(new Date())
                 .withExpiresAt(new Date(System.currentTimeMillis() + 3600 * 1000)) // 1 hora de expiração
                 .withPayload(claims) // Adiciona as claims
