@@ -65,6 +65,7 @@ public class AuthController {
         var tokenJwt = jwtUtil.generateJWTWithClaims(claims);
 
         response.put("token", tokenJwt);
+        response.put("status", 200);
         return ResponseEntity.accepted().body(response);
     }
 

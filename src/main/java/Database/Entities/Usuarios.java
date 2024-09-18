@@ -10,7 +10,7 @@ public class Usuarios {
 
     }
 
-    public Usuarios(Integer id, String nome, String email, String senha, String cpf, String telefone, String endereco, LocalDateTime dataCriacao, String role, Boolean ativo) {
+    public Usuarios(Integer id, String nome, String email, String senha, String cpf, String telefone, String endereco, LocalDateTime dataCriacao, Integer role, Boolean ativo) {
         this.id = id;
         this.nome = nome;
         this.email = email;
@@ -49,7 +49,7 @@ public class Usuarios {
     private LocalDateTime dataCriacao;
 
     @Column(nullable = false, length = 20)
-    private String role;
+    private Integer role;
 
     @Column(nullable = false)
     private Boolean ativo = true;
@@ -120,11 +120,11 @@ public class Usuarios {
         this.dataCriacao = dataCriacao;
     }
 
-    public String getRole() {
+    public Integer getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Integer role) {
         this.role = role;
     }
 
