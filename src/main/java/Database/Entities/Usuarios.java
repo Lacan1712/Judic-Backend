@@ -49,7 +49,9 @@ public class Usuarios {
     private LocalDateTime dataCriacao;
 
     @Column(nullable = false, length = 20)
-    private Integer role;
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    private Role role;
 
     @Column(nullable = false)
     private Boolean ativo = true;
