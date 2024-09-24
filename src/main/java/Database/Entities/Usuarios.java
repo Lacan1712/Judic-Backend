@@ -10,7 +10,7 @@ public class Usuarios {
 
     }
 
-    public Usuarios(Integer id, String nome, String email, String senha, String cpf, String telefone, String endereco, LocalDateTime dataCriacao, String role, Boolean ativo) {
+    public Usuarios(Integer id, String nome, String email, String senha, String cpf, String telefone, String endereco, LocalDateTime dataCriacao, Role role, Boolean ativo) {
         this.id = id;
         this.nome = nome;
         this.email = email;
@@ -48,8 +48,9 @@ public class Usuarios {
     @Column(name = "data_criacao", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime dataCriacao;
 
-    @Column(nullable = false, length = 20)
-    private String role;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "role_id")
+    private Role role;
 
     @Column(nullable = false)
     private Boolean ativo = true;
@@ -120,11 +121,11 @@ public class Usuarios {
         this.dataCriacao = dataCriacao;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole( Role role) {
         this.role = role;
     }
 

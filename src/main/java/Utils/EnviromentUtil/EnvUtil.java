@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class EnvUtil {
-    public static String FILE_PATH = "/home/rodrigo/Spring Boot/Judic-Backend/src/main/java/ENV.env";
+    public static String FILE_PATH = "/home/rodrigo/Documentos Local/Projetos/Spring Boot/Judic-Backend/src/main/java/ENV.env";
     private static final Map<String, String> envVariables = new HashMap<>();
     static {
         try {
