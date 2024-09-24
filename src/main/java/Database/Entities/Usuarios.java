@@ -10,7 +10,7 @@ public class Usuarios {
 
     }
 
-    public Usuarios(Integer id, String nome, String email, String senha, String cpf, String telefone, String endereco, LocalDateTime dataCriacao, Integer role, Boolean ativo) {
+    public Usuarios(Integer id, String nome, String email, String senha, String cpf, String telefone, String endereco, LocalDateTime dataCriacao, Role role, Boolean ativo) {
         this.id = id;
         this.nome = nome;
         this.email = email;
@@ -122,11 +122,11 @@ public class Usuarios {
         this.dataCriacao = dataCriacao;
     }
 
-    public Integer getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(Integer role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 
