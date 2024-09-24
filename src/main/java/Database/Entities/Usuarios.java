@@ -48,8 +48,7 @@ public class Usuarios {
     @Column(name = "data_criacao", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime dataCriacao;
 
-    @Column(nullable = false, length = 20)
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id")
     private Role role;
 
@@ -126,7 +125,7 @@ public class Usuarios {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole( Role role) {
         this.role = role;
     }
 
