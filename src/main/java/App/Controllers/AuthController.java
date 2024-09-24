@@ -57,10 +57,10 @@ public class AuthController {
 
 
         var usuarioLogado = usuariosOptional.get();
-        claims.put("id",usuarioLogado.getId());
+        claims.put("id",usuarioLogado.getId().toString());
         claims.put("nome",usuarioLogado.getNome());
         claims.put("email",usuarioLogado.getEmail());
-        claims.put("role",usuarioLogado.getRole());
+        claims.put("role",usuarioLogado.getRole().getNome());
 
         var tokenJwt = jwtUtil.generateJWTWithClaims(claims);
 
