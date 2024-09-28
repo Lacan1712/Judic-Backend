@@ -3,16 +3,20 @@ package Utils.JWTUtil;
 
 import Utils.AlgorithmsUtil.Interfaces.CryptographyRSAInterface;
 import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.interfaces.Claim;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import java.security.PrivateKey;
-import java.security.PublicKey;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
-
+@Component
 public class JwtUtil {
 
     private final CryptographyRSAInterface<RSAPublicKey, RSAPrivateKey> RSAlgorithm;
@@ -34,8 +38,24 @@ public class JwtUtil {
                 .sign(algorithm);
     }
 
-    public void getSubjectsFromToken(String token) {
+    public DecodedJWT getSubjectsFromToken(String token) {
+            Algorithm algorithm = Algorithm.RSA256((RSAPublicKey) this.RSAlgorithm.loadPublicKey(), (RSAPrivateKey) this.RSAlgorithm.loadPrivateKey());
+            JWTVerifier verifier = JWT.require(algorithm)
+                    // specify any specific claim validations
+                    .withIssuer("judic-backend")
+                    // reusable verifier instance
+                    .build();
+        return verifier.verify(token);
+    }
 
+    public String getRolesFromToken(String token) {
+        DecodedJWT jwt = getSubjectsFromToken(token);
+
+        // Extrai a claim 'roles' do token JWT
+        Claim rolesClaim = jwt.getClaim("role");
+
+        // Converte a claim para uma lista de strings
+        return rolesClaim.toString();
     }
 
 }
