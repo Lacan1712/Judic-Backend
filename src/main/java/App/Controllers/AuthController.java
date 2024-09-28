@@ -9,7 +9,6 @@ import java.util.Map;
 import java.util.Optional;
 
 import Database.Entities.Usuarios;
-import Database.Services.UsuarioService;
 import Utils.AlgorithmsUtil.RSAKeyUtil;
 import Utils.JWTUtil.JwtUtil;
 import Utils.PasswordHashingUtil.PasswordHashingUtil;
@@ -27,9 +26,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api")
 public class AuthController {
-
-    @Autowired
-    private UsuarioService usuarioService;
 
     @Autowired
     private AuthUserService authUserService;
@@ -67,36 +63,5 @@ public class AuthController {
         response.put("token", tokenJwt);
         response.put("status", 200);
         return ResponseEntity.accepted().body(response);
-    }
-
-    @GetMapping("/users")
-    public List<Usuarios> getAllUsers(){
-        return usuarioService.findAll();
-    }
-
-    @PostMapping("/create")
-    public Usuarios getAllUsers(@RequestBody UsuarioDTO usuarioDTO){
-        String hashedPassword = PasswordHashingUtil.hashPassword(usuarioDTO.senha());
-        Usuarios NovoUsuario = new Usuarios(usuarioDTO.id(),
-                usuarioDTO.nome(),
-                usuarioDTO.email(),
-                hashedPassword,
-                usuarioDTO.cpf(),
-                usuarioDTO.telefone(),
-                usuarioDTO.endereco(),
-                usuarioDTO.dataCriacao(),
-                usuarioDTO.role(),
-                usuarioDTO.ativo());
-
-        return usuarioService.createUsuario(NovoUsuario);
-    }
-
-    @PostMapping("/teste")
-    public String token(){
-        Map<String,Object> retorno = new HashMap<>();
-        retorno.put("nome","Rodrigo Lacan Barbosa Costa");
-
-        // Usando a instância injetada de jwtUtil
-        return jwtUtil.generateJWTWithClaims(retorno);
     }
 }
